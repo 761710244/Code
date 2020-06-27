@@ -11,7 +11,7 @@ public class CommonList {
             return null;
         }
         CommonArray commonArray = new CommonArray();
-        ArrayList<Integer> list = commonArray.generateRandomArray(size);
+        ArrayList<Integer> list = commonArray.generateRandomArrayList(size);
 
         ListNode head = new ListNode(list.get(0));
         ListNode cur = head;
