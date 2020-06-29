@@ -52,5 +52,14 @@ public class Main {
         commonArray.printArray(arr);
         commonArray.guluSort(arr);
         commonArray.printArray(arr);
+
+        /*
+            测试归并排序
+         */
+        System.out.println("测试归并排序:");
+        arr = commonArray.generateRandomArray(10);
+        commonArray.printArray(arr);
+        commonArray.mergeSort(arr);
+        commonArray.printArray(arr);
     }
 }
