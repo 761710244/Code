@@ -52,6 +52,11 @@ public class CommonArray {
         arr[j] = t;
     }
 
+    /**
+     * 测试选择排序
+     *
+     * @param arr
+     */
     public static void selectionSort(int[] arr) {
         if (arr == null) {
             return;
@@ -65,6 +70,11 @@ public class CommonArray {
         }
     }
 
+    /**
+     * 测试插入排序
+     *
+     * @param arr
+     */
     public static void insertSort(int[] arr) {
         if (arr == null) {
             return;
@@ -78,6 +88,11 @@ public class CommonArray {
         }
     }
 
+    /**
+     * 测试冒泡排序
+     *
+     * @param arr
+     */
     public static void guluSort(int[] arr) {
         if (arr == null) {
             return;
@@ -91,6 +106,11 @@ public class CommonArray {
         }
     }
 
+    /**
+     * 测试归并排序
+     *
+     * @param arr
+     */
     public static void mergeSort(int[] arr) {
         if (arr == null) {
             return;
@@ -127,42 +147,123 @@ public class CommonArray {
         }
     }
 
+    /**
+     * 常规快排
+     *
+     * @param arr
+     * @param left
+     * @param right
+     */
+    public static void quickSort(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int i = left;
+        int j = right;
+        int base = arr[left];
+        while (i < j) {
+            while (arr[j] >= base && i < j) {
+                j--;
+            }
+            while (arr[i] <= base && i < j) {
+                i++;
+            }
+            if (i < j) {
+                swap(arr, i, j);
+            }
+        }
+        arr[left] = arr[i];
+        arr[i] = base;
+        quickSort(arr, left, i - 1);
+        quickSort(arr, i + 1, right);
+    }
+
+    /**
+     * 将数组分为小于区和大于区
+     *
+     * @param arr
+     * @param number
+     */
+    public static void smallBig(int[] arr, int number) {
+        if (arr == null) {
+            return;
+        }
+        int small = -1;
+        for (int cur = 0; cur < arr.length; cur++) {
+            if (arr[cur] <= number) {
+                swap(arr, cur, ++small);
+            }
+        }
+    }
+
+    /**
+     * 将数组分为小于等于大于三部分
+     *
+     * @param arr
+     * @param num
+     */
+    public static void smallEqualBig(int[] arr, int num) {
+        if (arr == null) {
+            return;
+        }
+        int small = -1;
+        int big = arr.length;
+        int cur = 0;
+        while (cur < big) {
+            if (arr[cur] < num) {
+                swap(arr, cur++, ++small);
+            } else if (cur == num) {
+                cur++;
+            } else {
+                swap(arr, cur, --big);
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        /**
-         *   测试选择排序
-         */
+
         System.out.println("测试选择排序:");
         int[] arr = generateRandomArray(10);
         printArray(arr);
         selectionSort(arr);
         printArray(arr);
 
-        /**
-         *   测试插入排序
-         */
-        System.out.println("测试插入排序:");
+        System.out.println("\n测试插入排序:");
         arr = generateRandomArray(10);
         printArray(arr);
         insertSort(arr);
         printArray(arr);
 
-        /**
-         *   测试冒泡排序
-         */
-        System.out.println("测试冒泡排序:");
+        System.out.println("\n测试冒泡排序:");
         arr = generateRandomArray(10);
         printArray(arr);
         guluSort(arr);
         printArray(arr);
 
-        /**
-         *   测试归并排序
-         */
-        System.out.println("测试归并排序:");
+        System.out.println("\n测试归并排序:");
         arr = generateRandomArray(10);
         printArray(arr);
         mergeSort(arr);
         printArray(arr);
 
+        System.out.println("\n测试常规快排:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        quickSort(arr, 0, arr.length - 1);
+        printArray(arr);
+
+        System.out.println("\n将数组分为小于和大于区:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        smallBig(arr, 20);
+        printArray(arr);
+
+        System.out.println("\n将数组分为小于等于和大于三部分:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        int num = arr[3];
+        System.out.println(num);
+        smallEqualBig(arr, num);
+        printArray(arr);
     }
 }

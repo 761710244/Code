@@ -2,6 +2,8 @@ package Common;
 
 import model.TreeNode;
 
+import java.util.Stack;
+
 public class CommonTreeNode {
 
     public static TreeNode generateTree() {
@@ -17,6 +19,9 @@ public class CommonTreeNode {
         return root;
     }
 
+    /**
+     * 递归前序遍历二叉树
+     */
     public static void preOrderProcess(TreeNode root) {
         if (root == null) {
             return;
@@ -26,12 +31,26 @@ public class CommonTreeNode {
         preOrderProcess(root.right);
     }
 
+    /**
+     * 非递归前序遍历二叉树
+     */
     public static void preOrder(TreeNode root) {
         if (root == null) {
             return;
         }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            TreeNode t = stack.pop();
+            System.out.print(t.value + " ");
+            if (t.right != null) stack.add(t.right);
+            if (t.left != null) stack.add(t.left);
+        }
     }
 
+    /**
+     * 递归中序遍历二叉树
+     */
     public static void inOrderProcess(TreeNode root) {
         if (root == null) {
             return;
@@ -41,6 +60,9 @@ public class CommonTreeNode {
         inOrderProcess(root.right);
     }
 
+    /**
+     * 递归后序遍历二叉树
+     */
     public static void reOrderProcess(TreeNode root) {
         if (root == null) {
             return;
@@ -54,24 +76,18 @@ public class CommonTreeNode {
 
         TreeNode root = generateTree();
 
-        /**
-         *   递归前序遍历二叉树
-         */
         System.out.println("递归二叉树前序遍历：");
         preOrderProcess(root);
 
-        /**
-         *  递归中序遍历二叉树
-         */
-        System.out.println("\n");
-        System.out.println("递归二叉树中序遍历：");
+        System.out.println("\n非递归二叉树前序遍历：");
+        preOrder(root);
+
+
+        System.out.println("\n递归二叉树中序遍历：");
         inOrderProcess(root);
 
-        /**
-         *  递归中序遍历二叉树
-         */
-        System.out.println("\n");
-        System.out.println("递归二叉树后序遍历：");
+
+        System.out.println("\n递归二叉树后序遍历：");
         reOrderProcess(root);
 
     }
