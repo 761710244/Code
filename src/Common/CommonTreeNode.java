@@ -82,10 +82,8 @@ public class CommonTreeNode {
         System.out.println("\n非递归二叉树前序遍历：");
         preOrder(root);
 
-
         System.out.println("\n递归二叉树中序遍历：");
         inOrderProcess(root);
-
 
         System.out.println("\n递归二叉树后序遍历：");
         reOrderProcess(root);

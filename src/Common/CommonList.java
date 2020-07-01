@@ -6,7 +6,13 @@ import java.util.ArrayList;
 
 public class CommonList {
 
-    public ListNode generateRandomListNode(int size) {
+    /**
+     * 产生一个随机链表
+     *
+     * @param size
+     * @return
+     */
+    public static ListNode generateRandomListNode(int size) {
         if (size <= 0) {
             return null;
         }
@@ -22,8 +28,12 @@ public class CommonList {
         return head;
     }
 
-
-    public void printListNode(ListNode head) {
+    /**
+     * 打印链表
+     *
+     * @param head
+     */
+    public static void printListNode(ListNode head) {
         while (head != null) {
             if (head.next != null) {
                 System.out.print(head.value + "->");
@@ -34,5 +44,33 @@ public class CommonList {
         }
     }
 
+    /**
+     * 反转链表
+     *
+     * @param head
+     */
+    public static ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode cur = head;
+        ListNode pre = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
 
+    public static void main(String[] args) {
+
+        ListNode head = generateRandomListNode(5);
+        printListNode(head);
+
+        System.out.println("反转链表:");
+        ListNode reverse = reverseList(head);
+        printListNode(reverse);
+    }
 }
