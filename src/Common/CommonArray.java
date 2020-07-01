@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CommonArray {
 
-    public ArrayList<Integer> generateRandomArrayList(int num) {
+    public static ArrayList<Integer> generateRandomArrayList(int num) {
 
         ArrayList<Integer> list = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public class CommonArray {
         return list;
     }
 
-    public int[] generateRandomArray(int num) {
+    public static int[] generateRandomArray(int num) {
 
         int[] arr = new int[num];
 
@@ -26,7 +26,7 @@ public class CommonArray {
         return arr;
     }
 
-    public void printArrayList(ArrayList<Integer> array) {
+    public static void printArrayList(ArrayList<Integer> array) {
         for (int i = 0; i < array.size(); i++) {
             if (i != array.size() - 1) {
                 System.out.print(array.get(i) + " ");
@@ -36,7 +36,7 @@ public class CommonArray {
         }
     }
 
-    public void printArray(int[] array) {
+    public static void printArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
             if (i != array.length - 1) {
                 System.out.print(array[i] + " ");
@@ -46,13 +46,13 @@ public class CommonArray {
         }
     }
 
-    public void swap(int[] arr, int i, int j) {
+    public static void swap(int[] arr, int i, int j) {
         int t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;
     }
 
-    public void selectionSort(int[] arr) {
+    public static void selectionSort(int[] arr) {
         if (arr == null) {
             return;
         }
@@ -65,7 +65,7 @@ public class CommonArray {
         }
     }
 
-    public void insertSort(int[] arr) {
+    public static void insertSort(int[] arr) {
         if (arr == null) {
             return;
         }
@@ -78,7 +78,7 @@ public class CommonArray {
         }
     }
 
-    public void guluSort(int[] arr) {
+    public static void guluSort(int[] arr) {
         if (arr == null) {
             return;
         }
@@ -91,14 +91,14 @@ public class CommonArray {
         }
     }
 
-    public void mergeSort(int[] arr) {
+    public static void mergeSort(int[] arr) {
         if (arr == null) {
             return;
         }
         mergeProcess(arr, 0, arr.length - 1);
     }
 
-    private void mergeProcess(int[] arr, int l, int r) {
+    private static void mergeProcess(int[] arr, int l, int r) {
         if (l == r) {
             return;
         }
@@ -108,7 +108,7 @@ public class CommonArray {
         merge(arr, l, mid, r);
     }
 
-    private void merge(int[] arr, int l, int m, int r) {
+    private static void merge(int[] arr, int l, int m, int r) {
         int[] help = new int[r - l + 1];
         int i = 0;
         int p1 = l;
@@ -125,5 +125,44 @@ public class CommonArray {
         for (i = 0; i < help.length; i++) {
             arr[l + i] = help[i];
         }
+    }
+
+    public static void main(String[] args) {
+        /**
+         *   测试选择排序
+         */
+        System.out.println("测试选择排序:");
+        int[] arr = generateRandomArray(10);
+        printArray(arr);
+        selectionSort(arr);
+        printArray(arr);
+
+        /**
+         *   测试插入排序
+         */
+        System.out.println("测试插入排序:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        insertSort(arr);
+        printArray(arr);
+
+        /**
+         *   测试冒泡排序
+         */
+        System.out.println("测试冒泡排序:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        guluSort(arr);
+        printArray(arr);
+
+        /**
+         *   测试归并排序
+         */
+        System.out.println("测试归并排序:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        mergeSort(arr);
+        printArray(arr);
+
     }
 }

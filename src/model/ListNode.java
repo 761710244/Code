@@ -8,5 +8,4 @@ public class ListNode {
         this.value = val;
         this.next = null;
     }
-
 }
