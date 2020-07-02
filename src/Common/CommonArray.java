@@ -1,6 +1,8 @@
 package Common;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class CommonArray {
 
@@ -33,6 +35,16 @@ public class CommonArray {
             } else {
                 System.out.println(array.get(i));
             }
+        }
+    }
+
+    public static void printArrayLists(ArrayList<ArrayList<Integer>> array) {
+        if (array == null) {
+            return;
+        }
+        for (int i = 0; i < array.size(); i++) {
+            printArrayList(array.get(i));
+            System.out.println("");
         }
     }
 
@@ -220,6 +232,73 @@ public class CommonArray {
         }
     }
 
+    /**
+     * 堆排序
+     *
+     * @param arr
+     */
+    public static void heapSort(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            heapInsert(arr, i);
+        }
+        int size = arr.length;
+        while (size > 0) {
+            swap(arr, 0, --size);
+            heapIfy(arr, 0, size);
+        }
+    }
+
+    /**
+     * 建堆，向上浮
+     *
+     * @param arr
+     * @param index
+     */
+    public static void heapInsert(int[] arr, int index) {
+        while (arr[index] > arr[(index - 1) / 2]) {
+            swap(arr, index, (index - 1) / 2);
+            index = (index - 1) / 2;
+        }
+    }
+
+    /**
+     * 向下沉
+     *
+     * @param arr
+     * @param index
+     * @param size
+     */
+    public static void heapIfy(int[] arr, int index, int size) {
+        int left = index * 2 + 1;
+        while (left < size) {
+            int largest = left + 1 < size && arr[left] < arr[left + 1] ? left + 1 : left;
+            largest = arr[index] < arr[largest] ? largest : index;
+            if (largest == index) {
+                break;
+            }
+            swap(arr, index, largest);
+            index = largest;
+            left = index * 2 + 1;
+        }
+    }
+
+    public static void priorityQueueSort(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        Queue<Integer> heap = new PriorityQueue<>();
+        for (int i = 0; i < arr.length; i++) {
+            heap.add(arr[i]);
+        }
+        int index = 0;
+        while (!heap.isEmpty()) {
+            arr[index++] = heap.poll();
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println("测试选择排序:");
@@ -264,6 +343,18 @@ public class CommonArray {
         int num = arr[3];
         System.out.println(num);
         smallEqualBig(arr, num);
+        printArray(arr);
+
+        System.out.println("\n堆排序1:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        heapSort(arr);
+        printArray(arr);
+
+        System.out.println("\n堆排序2:");
+        arr = generateRandomArray(10);
+        printArray(arr);
+        priorityQueueSort(arr);
         printArray(arr);
     }
 }
