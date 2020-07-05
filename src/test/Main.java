@@ -3,6 +3,7 @@ package test;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -22,5 +23,17 @@ public class Main {
         booleanLinkedList.add(false);
         System.out.println(longArrayList.getClass() == integerArrayList.getClass());
         System.out.println(longArrayList.getClass() == booleanLinkedList.getClass());
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String cin = scanner.nextLine();
+            System.out.println(cin);
+            String[] split = cin.split(" ");
+            int[] arr = new int[split.length];
+            for (int i = 0; i < split.length; i++) {
+                arr[i] = Integer.parseInt(split[i]);
+                System.out.print(arr[i] + " ");
+            }
+        }
     }
 }
