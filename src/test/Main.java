@@ -17,13 +17,19 @@ public class Main {
         List<Boolean> booleanLinkedList = new LinkedList();
         longArrayList.add(10L);
         longArrayList.add(20L);
+
         integerArrayList.add(10);
         integerArrayList.add(20);
+
         booleanLinkedList.add(true);
         booleanLinkedList.add(false);
+
         System.out.println(longArrayList.getClass() == integerArrayList.getClass());
         System.out.println(longArrayList.getClass() == booleanLinkedList.getClass());
 
+        /**
+         * 测试输入输出
+         */
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String cin = scanner.nextLine();
@@ -35,5 +41,7 @@ public class Main {
                 System.out.print(arr[i] + " ");
             }
         }
+
+
     }
 }

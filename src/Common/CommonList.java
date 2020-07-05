@@ -190,7 +190,7 @@ public class CommonList {
      * @param head
      * @return
      */
-    public static ListNode isLoop(ListNode head) {
+    public static ListNode getLoopNode(ListNode head) {
         if (head == null || head.next == null || head.next.next == null) {
             return null;
         }
@@ -218,7 +218,7 @@ public class CommonList {
      * @param list2
      * @return
      */
-    public static ListNode sameNode(ListNode list1, ListNode list2) {
+    public static ListNode noLoop(ListNode list1, ListNode list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -247,6 +247,73 @@ public class CommonList {
             head2 = head2.next;
         }
         return head1;
+    }
+
+    /**
+     * 两个链表均有环
+     *
+     * @param head1
+     * @param loop1
+     * @param head2
+     * @param loop2
+     * @return
+     */
+    public static ListNode bothLoop(ListNode head1, ListNode loop1, ListNode head2, ListNode loop2) {
+        if (loop1 == loop2) {
+            int len = 0;
+            ListNode cur1 = head1;
+            while (cur1 != loop1) {
+                len++;
+                cur1 = cur1.next;
+            }
+            ListNode cur2 = head2;
+            while (cur2 != loop2) {
+                cur2 = cur2.next;
+                len--;
+            }
+            cur1 = len > 0 ? head1 : head2;
+            cur2 = cur1 == head1 ? head2 : head1;
+            len = Math.abs(len);
+            while (len-- > 0) {
+                cur1 = cur1.next;
+            }
+            while (cur1 != cur2) {
+                cur1 = cur1.next;
+                cur2 = cur2.next;
+            }
+            return cur1;
+        } else {
+            ListNode cur1 = loop1.next;
+            while (cur1 != loop1) {
+                if (cur1 == loop2) {
+                    return loop1;
+                }
+                cur1 = cur1.next;
+            }
+            return null;
+        }
+    }
+
+    /**
+     * 判断两个链表是否相交，若相交，则返回相交节点
+     *
+     * @param list1
+     * @param list2
+     * @return
+     */
+    public static ListNode commonNode(ListNode list1, ListNode list2) {
+        if (list1 == null || list2 == null) {
+            return null;
+        }
+        ListNode loop1 = getLoopNode(list1);
+        ListNode loop2 = getLoopNode(list2);
+        if (loop1 == null && loop2 == null) {
+            return noLoop(list1, list2);
+        }
+        if (loop1 != null && loop2 != null) {
+            return bothLoop(list1, loop1, list2, loop2);
+        }
+        return null;
     }
 
     public static void main(String[] args) {
@@ -284,7 +351,7 @@ public class CommonList {
 
         System.out.println("\n产生一个环形链表:");
         head = generateLoopList(10);
-        ListNode loop = isLoop(head);
+        ListNode loop = getLoopNode(head);
         System.out.println(loop.value);
 
         System.out.println("\n无环链表相交节点:");
@@ -293,7 +360,7 @@ public class CommonList {
         ListNode list2 = generateRandomListNode(5);
 //        list2.next.next.next = list1;
         printListNode(list2);
-        ListNode same = sameNode(list1, list2);
+        ListNode same = noLoop(list1, list2);
         printListNode(same);
     }
 }
