@@ -1,14 +1,25 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
+        /**
+         * Map的使用
+         */
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 2);
+        map.put(3, 4);
+        for (Integer key : map.keySet()) {
+            System.out.println(key + " " + map.get(key));
+        }
         /**
          *   字节面试题
          */
@@ -41,7 +52,6 @@ public class Main {
                 System.out.print(arr[i] + " ");
             }
         }
-
 
     }
 }
