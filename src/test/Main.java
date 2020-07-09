@@ -17,8 +17,13 @@ public class Main {
         Map<Integer, Integer> map = new HashMap<>();
         map.put(1, 2);
         map.put(3, 4);
+        map.put(5, 6);
+        map.put(7, 8);
+        map.put(9, 1);
         for (Integer key : map.keySet()) {
-            System.out.println(key + " " + map.get(key));
+            if (map.get(key) == 1) {
+                System.out.println(key + " " + map.get(key));
+            }
         }
         /**
          *   字节面试题

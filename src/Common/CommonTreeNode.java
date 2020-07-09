@@ -235,7 +235,34 @@ public class CommonTreeNode {
         }
     }
 
+    public static class Info {
+        public int level;
+        public int num;
 
+        public Info(int l, int n) {
+            this.level = l;
+            this.num = n;
+        }
+    }
+
+    public static Info process(TreeNode root) {
+        if (root == null) {
+            return new Info(0, 0);
+        }
+        Info left = process(root.left);
+        Info right = process(root.right);
+        int curNum = left.num + right.num + 1;
+        int curLevel = left.level > right.level ? left.level + 1 : right.level + 1;
+        return new Info(curLevel, curNum);
+    }
+
+    public static boolean isFullTree(TreeNode root) {
+        if (root == null) {
+            return false;
+        }
+        Info info = process(root);
+        return (1 << info.level) - 1 == info.num;
+    }
 
     public static void main(String[] args) {
 
@@ -270,6 +297,9 @@ public class CommonTreeNode {
 
         System.out.println("\n二叉树右视图：");
         rightView(root);
+
+        System.out.println("\n判断是否为满二叉树：");
+        System.out.println(isFullTree(root));
 
     }
 }
