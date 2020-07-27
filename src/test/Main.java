@@ -1,5 +1,7 @@
 package test;
 
+import model.ListNode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,6 +12,12 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
+        ListNode head = new ListNode(3);
+        ArrayList<ListNode> arrayList = new ArrayList<>();
+        arrayList.add(head);
+        head.value = 5;
+        System.out.println(arrayList.get(0).value);
 
         /**
          * Map的使用
@@ -57,6 +65,5 @@ public class Main {
                 System.out.print(arr[i] + " ");
             }
         }
-
     }
 }
