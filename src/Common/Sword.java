@@ -1,55 +1,108 @@
 package Common;
 
 import model.ListNode;
+import model.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class Sword {
 
-    public static boolean Find(int target, int [][] array) {
+    /**
+     * 二维数组中的查找
+     *
+     * @param target
+     * @param array
+     * @return
+     */
+    public static boolean Find(int target, int[][] array) {
         int line = array.length;
         int col = array[0].length;
         int i = line - 1;
         int j = 0;
-        while(i >= 0 && j < col){
-            if(array[i][j] < target){
+        while (i >= 0 && j < col) {
+            if (array[i][j] < target) {
                 j++;
-            }
-            else if(array[i][j] > target){
+            } else if (array[i][j] > target) {
                 i--;
-            }
-            else{
+            } else {
                 return true;
             }
         }
         return false;
     }
 
-    public static ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
-        Stack<Integer> sta = new Stack<>();
-        while (listNode != null) {
-            sta.push(listNode.value);
-            listNode = listNode.next;
+    /**
+     * 替换空格
+     *
+     * @param str
+     * @return
+     */
+    public String replaceSpace(StringBuffer str) {
+        if (str == null) {
+            return null;
         }
-        ArrayList<Integer> list = new ArrayList<>();
-        while (!sta.isEmpty()) {
-            list.add(sta.pop());
+        StringBuffer res = new StringBuffer();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ' ') {
+                res.append("%").append("2").append("0");
+            } else {
+                res.append(str.charAt(i));
+            }
         }
-        return list;
+        return res.toString();
     }
 
-    public static void main(String[] args) {
+    /**
+     * 从头到尾打印链表
+     *
+     * @param listNode
+     * @return
+     */
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> arraylist = new ArrayList<>();
+        if (listNode == null) {
+            return arraylist;
+        }
+        Stack<Integer> stack = new Stack<>();
+        while (listNode != null) {
+            stack.add(listNode.value);
+            listNode = listNode.next;
+        }
 
-        /**
-         * 从尾到头打印链表
-         */
-        System.out.println("从尾到头打印链表:");
-        CommonList commonList = new CommonList();
-        CommonArray commonArray = new CommonArray();
-        ListNode listNode = commonList.generateRandomListNode(10);
-        commonList.printListNode(listNode);
-        ArrayList<Integer> arrayList = printListFromTailToHead(listNode);
-        commonArray.printArrayList(arrayList);
+        while (!stack.isEmpty()) {
+            int val = stack.pop();
+            arraylist.add(val);
+        }
+        return arraylist;
+    }
+
+    public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
+        if (pre.length < 1) {
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[0]);
+        int pos = 0;
+        for (int i = 0; i < in.length; i++) {
+            if (in[i] == pre[0]) {
+                pos = i;
+                break;
+            }
+        }
+        int[] leftPre = new int[pos];
+        int[] leftIn = new int[pos];
+        int[] rightPre = new int[in.length - 1 - pos];
+        int[] rightIn = new int[in.length - 1 - pos];
+        for (int i = 0; i < pos; i++) {
+            leftIn[i] = in[i];
+            leftPre[i] = pre[i + 1];
+        }
+        for (int i = pos + 1, j = 0; i < in.length; i++, j++) {
+            rightIn[j] = in[i];
+            rightPre[j] = pre[i];
+        }
+        root.left = reConstructBinaryTree(leftPre, leftIn);
+        root.right = reConstructBinaryTree(rightPre, rightIn);
+        return root;
     }
 }
