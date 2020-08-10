@@ -1,46 +1,59 @@
 package test;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
 
+
     public static void main(String[] args) {
 
-        Scanner in = new Scanner(System.in);
-        long T = in.nextInt();
-        int n = in.nextInt();
-        int[] price = new int[n];
-        int[] value = new int[n];
-        for (int i = 0; i < n; i++) {
-            price[i] = in.nextInt();
-            value[i] = in.nextInt();
-        }
+//        String str1 = "abcd";
+//        reverse(str1, -1, 4);
 
-        System.out.println(getAns(price, value, T));
+        Scanner in = new Scanner(System.in);
+
+        String string = in.nextLine();
+
+        String ans = reverseParentheses(string);
+
+        System.out.println(ans);
     }
 
-    public static int getAns(int[] price, int[] value, long T) {
-        int n = price.length;
-        int[][] maxvalue = new int[n + 1][(int) (T + 1)];
-        for (int i = 0; i < T + 1; i++) {
-            maxvalue[0][i] = 0;
-        }
-
-        for (int i = 0; i < n + 1; i++) {
-            maxvalue[i][0] = 0;
-        }
-
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= T; j++) {
-                maxvalue[i][j] = maxvalue[i - 1][j];
-                if (price[i - 1] <= j) {
-                    if (maxvalue[i - 1][j - price[i - 1]] + value[i - 1] > maxvalue[i - 1][j]) {
-                        maxvalue[i][j] = maxvalue[i - 1][j - price[i - 1]] + value[i - 1];
-                    }
-                }
-
+    public static String reverseParentheses(String s) {
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else if (s.charAt(i) == ')') {
+                int left = stack.pop();
+                s = reverse(s, left, i);
             }
         }
-        return maxvalue[n][(int) T];
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != '(' && s.charAt(i) != ')') {
+                stringBuffer.append(s.charAt(i));
+            }
+        }
+        return stringBuffer.toString();
+    }
+
+    public static String reverse(String s, int left, int right) {
+        if (left >= right) {
+            return null;
+        }
+        StringBuffer newstr = new StringBuffer();
+        StringBuffer oldstr = new StringBuffer();
+        for (int i = left + 1; i < right; i++) {
+            oldstr.append(s.charAt(i));
+        }
+        String old = oldstr.toString();
+        for (int i = right - 1; i > left; i--) {
+            newstr.append(s.charAt(i));
+        }
+        String tmp = newstr.toString();
+        s = s.replace(old, tmp);
+        return s;
     }
 }
