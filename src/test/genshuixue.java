@@ -3,13 +3,14 @@ package test;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class Main {
+public class genshuixue {
 
 
     public static void main(String[] args) {
 
 //        String str1 = "abcd";
 //        reverse(str1, -1, 4);
+
 
         Scanner in = new Scanner(System.in);
 

@@ -2,6 +2,7 @@ package test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Test {
 
@@ -30,6 +31,15 @@ public class Test {
             System.out.println(i + " " + map.get(i));
         }
 
+        System.out.println("treeMap Test:");
+        TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+        treeMap.put(4, 5);
+        treeMap.put(2, 3);
+        treeMap.put(3, 8);
+
+        for (int i : treeMap.keySet()) {
+            System.out.println(i + " " + treeMap.get(i));
+        }
 
     }
 }
