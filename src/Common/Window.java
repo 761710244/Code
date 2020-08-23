@@ -51,7 +51,7 @@ public class Window {
                 }
             }
         }
-        return len == 9999 ? "" : s.substring(start, len);
+        return len == 9999 ? "" : s.substring(start, start + len);
     }
 
     public static void insertToMap(HashMap<Character, Integer> hashMap, char ch) {
