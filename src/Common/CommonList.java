@@ -185,6 +185,33 @@ public class CommonList {
     }
 
     /**
+     * 删除倒数第K个节点
+     *
+     * @param head
+     * @param K
+     * @return
+     */
+    public static ListNode deleteKFromTail(ListNode head, int K) {
+        if (head == null) {
+            return null;
+        }
+        ListNode tmp = new ListNode(0);
+        tmp.next = head;
+        ListNode fast = tmp;
+        ListNode slow = tmp;
+        while (K >= 0 && fast.next != null) {
+            fast = fast.next;
+            K--;
+        }
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return tmp.next;
+    }
+
+    /**
      * 判断链表是否有环，若有则返回环的入口
      *
      * @param head
@@ -362,5 +389,11 @@ public class CommonList {
         printListNode(list2);
         ListNode same = noLoop(list1, list2);
         printListNode(same);
+
+        System.out.println("\n删除倒数K个节点");
+        ListNode before = generateRandomListNode(10);
+        printListNode(before);
+        ListNode after = deleteKFromTail(before, 3);
+        printListNode(after);
     }
 }
