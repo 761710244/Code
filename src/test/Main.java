@@ -1,7 +1,8 @@
 package test;
 
-import sun.security.krb5.internal.crypto.HmacSha1Aes128CksumType;
-
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,83 +10,110 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String in = scanner.nextLine();
+        ArrayList<String> srcList = new ArrayList<>();
 
-        String srcString = in.split(";")[0];
-        String tarString = in.split(";")[1];
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            srcList.add(line);
+        }
 
-        String[] srcArr = srcString.toLowerCase().split(" ");
-        String[] tarArr = tarString.toLowerCase().split(" ");
+        String tar = srcList.get(srcList.size() - 1);
+        String edge = srcList.get(srcList.size() - 2);
 
-        HashMap<String, Integer> srcHash = toHash(srcArr);
-        HashMap<String, Integer> tarHash = toHash(tarArr);
+        srcList.remove(tar);
+        srcList.remove(edge);
 
-        HashMap<Character, Integer> srcFlag = getFlag(srcString.toLowerCase());
-        HashMap<Character, Integer> tarFlag = getFlag(srcString.toLowerCase());
+        for (String index : srcList) {
+            System.out.println(index);
+        }
 
-        int res = 0;
-        for (String index : srcHash.keySet()) {
-            if (!tarHash.containsKey(index)) {
-                res++;
-            } else if (srcHash.get(index) != tarHash.get(index)) {
-                res += Math.abs(srcHash.get(index) - tarHash.get(index));
+        String tarSp = getSpe(tar, edge);
+        ArrayList<String> res = new ArrayList<>();
+        HashMap<String, String> hashMap = new HashMap<>();
+        for (String index : srcList) {
+            String tmp = getSpe(index, edge);
+            if (tmp == tarSp) {
+                res.add(index);
             }
         }
 
-
-        for (Character index : srcFlag.keySet()) {
-            if (!tarFlag.containsKey(index)) {
-                res++;
-            } else if (srcFlag.get(index) != tarFlag.get(index)) {
-                res += Math.abs(srcFlag.get(index) - tarFlag.get(index));
-            }
+        for (String index : res) {
+            System.out.println(index);
         }
-
-        int size = tarArr.length;
-        int len = tarArr.length;
-        len = hasflag(tarArr[size - 1]) ? len + 1 : len;
-        System.out.println("(" + res + "," + len + ")");
-
     }
 
-    public static HashMap<String, Integer> toHash(String[] arr) {
-        HashMap<String, Integer> hashMap = new HashMap<>();
-        for (int i = 0; i < arr.length; i++) {
-            if (!hashMap.containsKey(arr[i])) {
-                hashMap.put(arr[i], 1);
-            } else {
-                int cnt = hashMap.get(arr[i]);
-                hashMap.put(arr[i], cnt + 1);
-            }
-        }
-        return hashMap;
-    }
-
-    public static HashMap<Character, Integer> getFlag(String str) {
-        HashMap<Character, Integer> hashMap = new HashMap<>();
-
+    public static String getSpe(String str, String ch) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) >= 'a' && str.charAt(i) <= 'z') {
-                continue;
-            }
-            if (!hashMap.containsKey(str.charAt(i))) {
-                hashMap.put(str.charAt(i), 1);
-            } else {
-                int cnt = hashMap.get(str.charAt(i));
-                hashMap.put(str.charAt(i), cnt = 1);
+            if (str.charAt(i) < ch.charAt(0)) {
+                stringBuilder.append(str.charAt(i));
             }
         }
-
-        return hashMap;
+        return stringBuilder.toString();
     }
 
-    public static boolean hasflag(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if ((str.charAt(i) >= 'a' && str.charAt(i) <= 'z') || (str.charAt(i) >= '0' && str.charAt(i) <= '9')) {
-                continue;
-            }
-            return true;
-        }
-        return false;
-    }
+//    public static void main(String[] args) {
+//        Scanner scanner = new Scanner(System.in);
+//        String in = scanner.nextLine();
+//
+//        String srcString = in.split(";")[0];
+//        String tarString = in.split(";")[1];
+//
+//        srcString = preHandle(srcString.toLowerCase());
+//        tarString = preHandle(tarString.toLowerCase());
+//
+//        String[] srcArr = srcString.toLowerCase().split(" ");
+//        String[] tarArr = tarString.toLowerCase().split(" ");
+//
+//        //
+////        for (int i = 0; i < srcArr.length; i++) {
+////            System.out.print(srcArr[i] + " ");
+////        }
+////        System.out.println();
+////        for (int i = 0; i < tarArr.length; i++) {
+////            System.out.print(tarArr[i] + " ");
+////        }
+////        System.out.println();
+//        Arrays.sort(srcArr);
+//        Arrays.sort(tarArr);
+//
+////        for (int i = 0; i < srcArr.length; i++) {
+////            System.out.print(srcArr[i] + " ");
+////        }
+////        System.out.println();
+////        for (int i = 0; i < tarArr.length; i++) {
+////            System.out.print(tarArr[i] + " ");
+////        }
+//
+//        int partition = 0;
+//        for (int i = 0; i < srcArr.length; i++) {
+//            if (!tarString.contains(srcArr[i])) {
+//                partition++;
+//            }
+//        }
+//        for (int i = 0; i < tarArr.length; i++) {
+//            if (!srcString.contains(tarArr[i])) {
+//                partition++;
+//            }
+//        }
+//        System.out.println("(" + partition + "," + tarArr.length + ")");
+//    }
+//
+//    public static String preHandle(String str) {
+//        str = str.replace(",","!");
+//        str = str.replace(".","!");
+//        StringBuilder string = new StringBuilder();
+//        for (int i = 0; i < str.length(); i++) {
+//            if (str.charAt(i) == ' ') {
+//                string.append(str.charAt(i));
+//                continue;
+//            }
+//            if ((str.charAt(i) >= 'a' && str.charAt(i) <= 'z') || (str.charAt(i) >= '0' && str.charAt(i) <= '9')) {
+//                string.append(str.charAt(i));
+//            } else {
+//                string.append(" ").append(str.charAt(i)).append(" ");
+//            }
+//        }
+//        return string.toString();
+//    }
 }
