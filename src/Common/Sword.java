@@ -66,7 +66,7 @@ public class Sword {
         }
         Stack<Integer> stack = new Stack<>();
         while (listNode != null) {
-            stack.add(listNode.value);
+            stack.add(listNode.val);
             listNode = listNode.next;
         }
 

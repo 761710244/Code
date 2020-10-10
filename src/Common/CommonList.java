@@ -56,9 +56,9 @@ public class CommonList {
     public static void printListNode(ListNode head) {
         while (head != null) {
             if (head.next != null) {
-                System.out.print(head.value + "->");
+                System.out.print(head.val + "->");
             } else {
-                System.out.println(head.value);
+                System.out.println(head.val);
             }
             head = head.next;
         }
@@ -156,7 +156,7 @@ public class CommonList {
         if (cur.next == null && k > 0) {
             return -1;
         }
-        return cur.value;
+        return cur.val;
     }
 
     /**
@@ -180,7 +180,7 @@ public class CommonList {
         if (cur.next == null && k > 0) {
             return head;
         }
-        cur.value = data;
+        cur.val = data;
         return head;
     }
 
@@ -379,7 +379,7 @@ public class CommonList {
         System.out.println("\n产生一个环形链表:");
         head = generateLoopList(10);
         ListNode loop = getLoopNode(head);
-        System.out.println(loop.value);
+        System.out.println(loop.val);
 
         System.out.println("\n无环链表相交节点:");
         ListNode list1 = generateRandomListNode(10);

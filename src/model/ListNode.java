@@ -3,11 +3,11 @@ package model;
 import java.util.Stack;
 
 public class ListNode {
-    public int value;
+    public int val;
     public ListNode next;
 
     public ListNode(int val) {
-        this.value = val;
+        this.val = val;
         this.next = null;
     }
 
@@ -22,7 +22,7 @@ public class ListNode {
         cur = head;
         while (!stack.isEmpty()) {
             ListNode node = stack.pop();
-            if (node.value != cur.value) {
+            if (node.val != cur.val) {
                 return false;
             }
             cur = cur.next;

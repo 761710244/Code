@@ -65,6 +65,19 @@ public class CommonArray {
     }
 
     /**
+     * 当两个数值不一样时，可使用，否则不行
+     *
+     * @param arr
+     * @param i
+     * @param j
+     */
+    public static void swap1(int[] arr, int i, int j) {
+        arr[i] = arr[i] ^ arr[j];
+        arr[j] = arr[i] ^ arr[j];
+        arr[i] = arr[i] ^ arr[j];
+    }
+
+    /**
      * 测试选择排序
      *
      * @param arr
