@@ -1,4 +1,5 @@
 package test;
+
 //
 public class Test {
 //
@@ -43,8 +44,10 @@ public class Test {
 
         @Override
         public void run() {
+            int count = 0;
             for (int i = 0; i < 5; i++) {
-                testThread.printStr("A");
+                count++;
+                testThread.printStr(count, "A");
             }
             System.out.println("a线程打印完了");
         }
@@ -60,8 +63,10 @@ public class Test {
 
         @Override
         public void run() {
+            int count = 0;
             for (int i = 0; i < 5; i++) {
-                testThread.printStr("B");
+                count++;
+                testThread.printStr(count, "B");
             }
             System.out.println("b线程打印完了");
         }
@@ -70,17 +75,18 @@ public class Test {
     //测试类
     public static class TestThread {
 
-        public synchronized void printStr(String str) {
+        public synchronized void printStr(int cnt, String str) {
             String name = Thread.currentThread().getName();
             if ("A".equals(str)) {
                 System.out.println(name + "-----" + "A");
-
             } else if ("B".equals(str)) {
                 System.out.println(name + "-----" + "B");
             }
             try {
                 notify();
-                wait();
+                if (cnt != 5) {
+                    wait();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
