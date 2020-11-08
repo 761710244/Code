@@ -47,7 +47,7 @@ public class Thread {
                 count++;
                 testThread.printStr(count, "A");
             }
-            System.out.println("a线程打印完了");
+            System.out.println("A线程执行完毕！");
         }
     }
 
@@ -66,7 +66,7 @@ public class Thread {
                 count++;
                 testThread.printStr(count, "B");
             }
-            System.out.println("b线程打印完了");
+            System.out.println("B线程执行完毕！");
         }
     }
 
@@ -106,6 +106,6 @@ public class Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("交替打印完成");
+        System.out.println("交替执行完毕！");
     }
 }
