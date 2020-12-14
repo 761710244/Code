@@ -1,4 +1,4 @@
-package Bili1214;
+package Bili121401;
 
 public class Parent {
     public int age = 40;
