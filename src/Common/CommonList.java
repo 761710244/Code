@@ -86,6 +86,7 @@ public class CommonList {
 
     /**
      * 合并两个有序链表
+     *
      * @param l1
      * @param l2
      * @return
@@ -119,7 +120,7 @@ public class CommonList {
     }
 
     /**
-     * 链表第K个位置插入一个节点
+     * 链表第K个节点后插入一个节点
      *
      * @param head
      * @param k
@@ -127,22 +128,22 @@ public class CommonList {
      * @return
      */
     public static ListNode insertKth(ListNode head, int k, int data) {
-        if (head == null) {
+        if (head == null || k <= 0) {
             return null;
         }
         ListNode cur = head;
-        k -= 2;
-        while (k > 0 && cur.next != null) {
+        int pos = 0;
+        while (pos != k - 1 && cur != null) {
             cur = cur.next;
-            k--;
+            pos++;
         }
-        if (cur.next == null) {
-            cur.next = new ListNode(data);
-            return head;
+        if (cur == null) {
+            return null;
         }
-        ListNode tmp = cur.next;
-        cur.next = new ListNode(data);
-        cur.next.next = tmp;
+
+        ListNode node = new ListNode(data);
+        node.next = cur.next;
+        cur.next = node;
         return head;
     }
 
